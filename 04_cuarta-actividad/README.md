@@ -1,16 +1,131 @@
-# React + Vite
+# Actividad de Práctica – Modularización, Rutas, Hooks y Estilos en React con Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Objetivo
 
-Currently, two official plugins are available:
+El objetivo de esta actividad es **refactorizar el código existente de la carpeta `05-rutas-estilos`**, aplicando **buenas prácticas de modularización, componentización, uso de hooks personalizados (`useFetch`, `useCounter`, `useForm`)**, configuración de **rutas públicas y privadas**, y la **implementación de un framework de estilos (Tailwind o Bootstrap)** para mejorar la presentación visual.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## Estructura esperada
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+A modo orientativo, la estructura final del proyecto debería ser similar a:
 
-## Expanding the ESLint configuration
+```bash
+src/
+ ├── components/
+ │    ├── Navbar.jsx
+ │    ├── Loading.jsx
+ │    └── CharacterInfo.jsx
+ │
+ ├── hooks/
+ │    ├── useCounter.js
+ │    └── useFetch.js
+ │    └── useForm.js
+ │
+ ├── pages/
+ │    ├── HomePage.jsx
+ │    ├── LoginPage.jsx
+ │    └── RegisterPage.jsx
+ │
+ ├── router/
+ │    ├── AppRouter.jsx
+ │    ├── PrivateRoutes.jsx
+ │    └── PublicRoutes.jsx
+ │
+ ├── App.jsx
+ └── main.jsx
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## Instrucciones
+
+### 1. Creación de páginas
+
+Se deben crear las siguientes **páginas dentro de la carpeta `pages/`**:
+
+#### `HomePage.jsx`
+
+Como mínimo:
+
+- Debe contener **la lógica y el contenido del componente `MultipleCustomHooks`** de la tarea 3.
+- Mantener las funcionalidades de obtención de datos mediante `useFetch` y manejo del contador con `useCounter`.
+- Mostrar los personajes utilizando los componentes `Loading` y `CharacterInfo`.
+
+#### `LoginPage.jsx`
+
+- Debe tener un formulario de logueo utizando el custom hook de useForm.
+- Al presionar el botón de inicio de sesión:
+  - Guardar en `localStorage` el valor `isLogged = true`.
+  - Redireccionar automáticamente a la página principal (`HomePage`).
+
+#### `RegisterPage.jsx`
+
+- Debe tener un formulario de registro utizando el custom hook de useForm.
+- Al presionar el botón de registro:
+  - Redireccionar automáticamente a la página de `LoginPage`.
+
+---
+
+### 3. Navbar
+
+- Crear un componente `Navbar.jsx` con:
+  - Un enlace a **Home**.
+  - Un botón o enlace de **Logout**.
+- Al hacer clic en **Logout**:
+  - Eliminar el valor `isLogged` del `localStorage`.
+  - Redireccionar al `LoginPage`.
+
+---
+
+### 4. Rutas públicas y privadas
+
+Implementar **enrutamiento protegido** mediante `react-router`.
+
+#### Rutas privadas:
+
+- Solo accesibles si `isLogged = true` en `localStorage`.
+- En caso contrario, redirigir automáticamente al `LoginPage`.
+
+#### Rutas públicas:
+
+- Accesibles solo si (`isLogged`) es distinto a `true`.
+- En caso contrario, redirigir automáticamente al `HomePage`.
+
+---
+
+### 5. Implementación de estilos (Tailwind o Bootstrap)
+
+- Es **obligatorio** utilizar uno de los siguientes frameworks de estilos:
+  - **Tailwind CSS**
+  - **Bootstrap**
+
+#### Si se elige **Tailwind CSS**:
+
+- Configurarlo siguiendo la guía del ClassRoom.
+
+#### Si se elige **Bootstrap**:
+
+- Instalarlo mediante npm e importarlo en el `main.jsx`:
+  ```bash
+  npm install bootstrap
+  ```
+  ```js
+  // main.jsx
+  import "bootstrap/dist/css/bootstrap.min.css";
+  import "bootstrap/dist/js/bootstrap.bundle.min";
+  ```
+- o mediante `CDN` en el `index.html` del proyecto.
+
+---
+
+## Puntos clave
+
+- No se deben usar librerías externas distintas a las solicitadas.
+- Reutilizar y modularizar correctamente los **custom hooks** creados.
+- Separar correctamente las responsabilidades entre **componentes, páginas y router**.
+- Implementar correctamente la **protección de rutas públicas y privadas**.
+- Controlar la autenticación usando **localStorage**.
+- Mantener una navegación coherente mediante la **Navbar**.
+- Aplicar **Tailwind o Bootstrap** para mejorar la presentación del proyecto.
+- Se recomienda intentar resolver la actividad leyendo la documentación y el código de práctica proporcionado, sin recurrir a herramientas de inteligencia artificial, con el objetivo de aprender a equivocarse, analizar y resolver problemas de forma autónoma.
