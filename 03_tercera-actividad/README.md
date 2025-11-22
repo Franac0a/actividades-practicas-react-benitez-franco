@@ -1,16 +1,61 @@
-# React + Vite
+# Actividad de Práctica - Modularización, Componentización y Customs Hooks en React con Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Objetivo
 
-Currently, two official plugins are available:
+El objetivo de esta actividad es **refactorizar el código proporcionado aplicando buenas prácticas de modularización, uso de múltiples hooks personalizados (useFetch, useCounter), y componentización.**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## Instrucciones
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+A partir del código entregado por el profesor, se deben realizar los siguientes cambios:
 
-## Expanding the ESLint configuration
+### 1. Crear un custom hook `useFetch`
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Todo el código relacionado con el **fetch** (incluyendo el **estado** y la **función** que realiza la petición) debe extraerse y colocarse en un **custom hook** llamado `useFetch.js`.
+- Este hook debe:
+  - Recibir por parámetro una **URL**.
+  - Usar **useEffect** para ejecutar la petición cada vez que la URL cambie.
+  - Retornar el estado de **carga**, los **datos obtenidos**, y cualquier **error** si lo hubiera (opcional).
+
+Ejemplo de estructura:
+
+```bash
+src/
+ ├── hooks/
+ │    ├── useCounter.js
+ │    └── useFetch.js
+```
+
+---
+
+### 2. Componentizar el contenido
+
+- Crear **un componente para el estado de carga** (por ejemplo: `Loading.jsx`) y que sea una vista mas desarrollada.
+- Crear **un componente para mostrar la información del personaje** (por ejemplo: `CharacterInfo.jsx`).
+- El componente del personaje debe mostrar **más de una propiedad** (no solo el nombre) e **incluir la imagen del personaje**.
+
+Ejemplo de estructura:
+
+```bash
+src/
+ ├── components/
+ │    ├── Loading.jsx
+ │    └── CharacterInfo.jsx
+```
+
+---
+
+### 3. Agregar navegación entre personajes
+
+- Incorporar un **botón adicional** que permita ver los **personajes anteriores**.
+- Tener en cuenta que **no debe ser posible buscar un personaje con un `id` menor a 1**, si el personaje actual tiene `id = 1`, el botón “Anterior” debe estar **deshabilitado**.
+
+---
+
+### Puntos Clave
+
+- No se deben usar librerías externas.
+- No es necesario utilizar navegación.
+- Si se utiliza `CSS`, debe implementarse mediante un archivo externo con extensión `.css`. No se permite el uso de frameworks de estilos ni la aplicación de estilos en línea.
+- Se recomienda intentar resolver la actividad leyendo la documentación y el código de práctica proporcionado, sin recurrir a herramientas de inteligencia artificial, con el objetivo de aprender a equivocarse, analizar y resolver problemas de forma autónoma.
